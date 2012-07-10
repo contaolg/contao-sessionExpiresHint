@@ -1,0 +1,42 @@
+
+<script>
+    /** Immediate Object
+     *
+     */
+    ({
+        options: {
+            sessionTime: <?php echo $GLOBALS['TL_CONFIG']['sessionTimeout'] ?>,
+            messageIsSet: false,
+            text: {
+                hint: 'Achtung Ihre Session läuft aus',
+                timeLeft: 'Verbliebende Zeit'
+            }
+        },
+        init: function() {
+            var getTime = this.options.sessionTime;
+            this.count = this.countdown.periodical(1000, this);
+
+        },
+        countdown: function() {
+            if(this.options.sessionTime <= 10 && !this.options.messageIsSet) {
+                this.options.messageIsSet = true;
+                alert('Achtung, in 10 Sekunden läuft die Session ab. Bitte speichern sie.');
+            }
+            if(this.options.sessionTime > 0) {
+                this.options.sessionTime--;
+
+            } else {
+                clearInterval(this.count);
+            }
+        },
+        message: function() {
+            //TODO Add Box to DOM!
+            var div = new Element('div'),
+                wrap = div.clone().addClass('m17-se-wrap'),
+                hint = div.clone().addClass('m17-se-hint'),
+                counter = div.clone().addClass('m17-se-counter');
+
+
+        }
+    }).init()
+</script>
