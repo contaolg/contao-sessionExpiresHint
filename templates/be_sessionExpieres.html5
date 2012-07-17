@@ -1,15 +1,15 @@
 <?php $GLOBALS['TL_CSS'][] = 'system/modules/sessionExpiresHint/html/sessionExpiresHint.css' ?>
-<?php //TODO add language Support ?>
+<?php $_lang = $GLOBALS['TL_LANG']['EXT']['sessionExpiresHint']; ?>
 <div id="hint">
     <div class="inner">
-        <h3>Bitte speichern Sie zwischen Ihre Sitzung läuft bald ab!</h3>
-        <p>Ihre aktuelle Sitzung neigt sich dem Ende. Bitte speichern Sie Ihre Daten zwischen damit diese nicht verloren gehen!</p>
+        <h3><?php echo $_lang['hint']['hl'] ?></h3>
+        <p><?php echo $_lang['hint']['text'] ?></p>
     </div>
 </div>
 
 <div id="hintcenter">
-    <h2>Sie wurden aus dem Backend ausgelogged!</h2>
-    <p>Sie wurden aus Sicherheitsgründen aus dem Contao Backend ausgelogged da Ihre Sitzungsdauer abgelaufen ist.</p>
+    <h2><?php echo $_lang['hintlogout']['hl'] ?></h2>
+    <p><?php echo $_lang['hintlogout']['text'] ?></p>
 </div>
 <script>
     /** Immediate Object
