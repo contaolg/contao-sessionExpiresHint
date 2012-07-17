@@ -38,7 +38,7 @@
             });
         },
         countdown: function() {
-            if(this.options.sessionTime <= 28 && !this.options.messageIsSet) {
+            if(this.options.sessionTime <= 60 && !this.options.messageIsSet) {
                 this.options.messageIsSet = true;
                 this.showHint('top');
             } else if(this.options.sessionTime == 0) {
