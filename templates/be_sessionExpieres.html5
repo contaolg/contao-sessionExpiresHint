@@ -1,4 +1,16 @@
+<?php $GLOBALS['TL_CSS'][] = 'system/modules/sessionExpiresHint/html/sessionExpiresHint.css' ?>
+<?php //TODO add language Support ?>
+<div id="hint">
+    <div class="inner">
+        <h3>Bitte speichern Sie zwischen Ihre Sitzung läuft bald ab!</h3>
+        <p>Ihre aktuelle Sitzung neigt sich dem Ende. Bitte speichern Sie Ihre Daten zwischen damit diese nicht verloren gehen!</p>
+    </div>
+</div>
 
+<div id="hintcenter">
+    <h2>Sie wurden aus dem Backend ausgelogged!</h2>
+    <p>Sie wurden aus Sicherheitsgründen aus dem Contao Backend ausgelogged da Ihre Sitzungsdauer abgelaufen ist.</p>
+</div>
 <script>
     /** Immediate Object
      *
@@ -7,36 +19,53 @@
         options: {
             sessionTime: <?php echo $GLOBALS['TL_CONFIG']['sessionTimeout'] ?>,
             messageIsSet: false,
-            text: {
-                hint: 'Achtung Ihre Session läuft aus',
-                timeLeft: 'Verbliebende Zeit'
-            }
+            hintTop: document.id('hint'),
+            hintCenter: document.id('hintcenter'),
+            useOverlay: true
         },
         init: function() {
             var getTime = this.options.sessionTime;
+            var self = this;
             this.count = this.countdown.periodical(1000, this);
-
+            document.id('hint').inject(document.body);
+            this.Mask = new Mask(document.body, {
+                'class': 'mask',
+                'style': { 'opacity': 0.0 },
+                onShow: function() {
+                    self.options.hintCenter.setStyle('left', '50%');
+                    self.options.hintCenter.fade('in');
+                }
+            });
         },
         countdown: function() {
-            if(this.options.sessionTime <= 10 && !this.options.messageIsSet) {
+            if(this.options.sessionTime <= 28 && !this.options.messageIsSet) {
                 this.options.messageIsSet = true;
-                alert('Achtung, in 10 Sekunden läuft die Session ab. Bitte speichern sie.');
+                this.showHint('top');
+            } else if(this.options.sessionTime == 0) {
+                this.showHint('center');
             }
+
             if(this.options.sessionTime > 0) {
                 this.options.sessionTime--;
-
             } else {
                 clearInterval(this.count);
             }
         },
-        message: function() {
-            //TODO Add Box to DOM!
-            var div = new Element('div'),
-                wrap = div.clone().addClass('m17-se-wrap'),
-                hint = div.clone().addClass('m17-se-hint'),
-                counter = div.clone().addClass('m17-se-counter');
-
-
+        showHint: function(type) {
+            if(type === 'top') {
+                this.options.hintTop.tween('top', -8);
+            } else if(type === 'center') {
+                if(this.options.useOverlay) {
+                    this.Mask.show();
+                    this.Mask.element.tween('opacity', 0.7);
+                } else {
+                    this.options.hintCenter.setStyle('left', '50%');
+                    this.options.hintCenter.fade('in');
+                }
+                this.options.hintTop.tween('top', -95);
+            } else {
+                throw ('Illegal type go and check your script!');
+            }
         }
     }).init()
 </script>

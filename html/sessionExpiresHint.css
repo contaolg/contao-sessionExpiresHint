@@ -1,0 +1,34 @@
+.mask {
+    background: #000;
+}
+
+#hint {
+    margin: 0 auto;
+    width: 600px;
+    height: 60px;
+    background-color: #ffd200;
+    border: 2px solid #ff8a00;
+    border-radius: 10px;
+    position: fixed;
+    z-index: 999;
+    top: -95px;
+    left: 50%;
+    overflow: hidden;
+    padding: 15px;
+    text-align: center;
+    margin-left: -320px;
+    text-align: left;
+}
+
+#hintcenter {
+    background: #fff;
+    padding: 20px;
+    border: 5px solid #8AB858;
+    position: fixed;
+    top: 40%;
+    left: -999em;
+    z-index: 88;
+    opacity: 0;
+    margin-left: -350px;
+    border-radius: 10px;
+}
